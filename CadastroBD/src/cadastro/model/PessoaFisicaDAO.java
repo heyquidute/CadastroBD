@@ -129,13 +129,22 @@ public class PessoaFisicaDAO {
             psPessoa.setString(4, pessoa.getEstado());
             psPessoa.setString(5, pessoa.getTelefone());
             psPessoa.setString(6, pessoa.getEmail());
-            psPessoa.executeUpdate();
+            //psPessoa.executeUpdate();
+            int linhasAfetadas  = psPessoa.executeUpdate();
+            if(linhasAfetadas == 0){
+                throw new SQLException("Inserção na tabela Pessoas falhou, nenhuma linha afetada");
+            }
             
             // pegando o id_pessoa gerado pela sequence
-            ResultSet generatedKeys = psPessoa.getGeneratedKeys();
+            String sqlIdPessoa = "SELECT TOP 1 id_pessoa FROM Pessoas ORDER BY id_pessoa DESC;";
+            PreparedStatement psIdPessoa = c.prepareStatement(sqlIdPessoa);
+            ResultSet rsIdPessoa = psIdPessoa.executeQuery();
+            
             int idPessoa = -1;
-            if(generatedKeys.next()){
-                idPessoa = generatedKeys.getInt(1);
+            if(rsIdPessoa.next()){
+                idPessoa = rsIdPessoa.getInt("id_pessoa");
+            } else {
+                throw new SQLException("Falha ao obter o ID gerado para a pessoa inserida na tabela Pessoas");
             }
             
             // inserção de dados na tabela Pessoas_Fisicas
@@ -147,8 +156,7 @@ public class PessoaFisicaDAO {
             psPessoaFisica.setString(3,pessoa.getCpf());
             psPessoaFisica.executeUpdate();
            
-            int linhasAfetadas = psPessoaFisica.executeUpdate();
-            taNoBalde = (linhasAfetadas > 0);
+            taNoBalde = true;
         } catch (SQLException excep){
             excep.printStackTrace();
         } finally {

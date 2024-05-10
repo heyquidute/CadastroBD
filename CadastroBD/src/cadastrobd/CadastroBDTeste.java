@@ -17,12 +17,12 @@ public class CadastroBDTeste {
         
         //criando uma pessoa fisica e testando o incluir()
         PessoaFisica pessoaFisica = new PessoaFisica();
-        pessoaFisica.setNome("John Smith");
-        pessoaFisica.setLogradouro("Queens");
+        pessoaFisica.setNome("Joey Tribbiani");
+        pessoaFisica.setLogradouro("Central Park");
         pessoaFisica.setCidade("New York City");
         pessoaFisica.setEstado("NY");
-        pessoaFisica.setTelefone("+1 40028922");
-        pessoaFisica.setEmail("jhon@smith.com");
+        pessoaFisica.setTelefone("+1 12345678");
+        pessoaFisica.setEmail("joey@friends.com");
         pessoaFisica.setCpf("12345678910");
         
         PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
