@@ -183,7 +183,9 @@ public class PessoaFisicaDAO {
             psPessoa.executeUpdate();
             
             //update da tabela Pessoas_Fisicas
-            String sqlPessoaFisica = "UPDATE Pessoas_Fisicas" + "SET cpf = ?" + "WHERE id_pessoa = ?";
+            String sqlPessoaFisica = "UPDATE Pessoas_Fisicas" + 
+                                     "SET cpf = ?" + 
+                                     "WHERE id_pessoa = ?";
             psPessoaFisica = c.prepareStatement(sqlPessoaFisica);
             psPessoaFisica.setString(1,pessoa.getCpf());
             psPessoaFisica.setInt(2,pessoa.getId_pessoa());
@@ -220,7 +222,7 @@ public class PessoaFisicaDAO {
             // exclusão na tabela Pessoas_Fisicas
             String sqlPessoaFisica = "DELETE FROM Pessoas_Fisicas WHERE id_pessoa = ?";
             psPessoaFisica = c.prepareStatement(sqlPessoaFisica);
-            psPessoa.setInt(1, pessoa.getId_pessoa());
+            psPessoaFisica.setInt(1, pessoa.getId_pessoa());
             psPessoaFisica.executeUpdate();
             
         } catch(SQLException excep){
@@ -231,11 +233,6 @@ public class PessoaFisicaDAO {
             ConectorBD.close(psPessoaFisica);
         }
         return taNoBalde;
-    }
-    
-    
-    
-    
-    
-    
+    } //mudar parametro para int
+      
 }
