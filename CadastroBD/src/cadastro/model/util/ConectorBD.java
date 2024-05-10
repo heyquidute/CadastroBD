@@ -16,7 +16,7 @@ import java.util.Properties;
  * @author anaqu
  */
 public class ConectorBD {
-    private static final String URL = "jdbc:mysql://localhost:3306/loja";
+    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=loja;encrypt=true;trustServerCertificate=true";
     private static final String USUARIO = "loja";
     private static final String SENHA = "loja";
     

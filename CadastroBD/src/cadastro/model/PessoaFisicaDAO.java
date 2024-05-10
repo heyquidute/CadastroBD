@@ -121,7 +121,7 @@ public class PessoaFisicaDAO {
             
             // inserção dos dados na tabela Pessoas
             String sqlPessoa = "INSERT INTO Pessoas (nome, logradouro, cidade, estado, telefone, email)" + 
-                        "VALUES (?,?,?,?,?,?,?)";
+                        "VALUES (?,?,?,?,?,?)";
             psPessoa = c.prepareStatement(sqlPessoa, Statement.RETURN_GENERATED_KEYS);
             psPessoa.setString(1, pessoa.getNome());
             psPessoa.setString(2, pessoa.getLogradouro());
