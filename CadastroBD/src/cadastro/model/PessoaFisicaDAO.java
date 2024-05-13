@@ -20,42 +20,6 @@ import cadastrobd.model.PessoaFisica;
  * @author anaqu
  */
 public class PessoaFisicaDAO {
-    private ConectorBD connector;
-
-    public PessoaFisicaDAO() {
-    connector = new ConectorBD();
-    }
-    
-    /*==========================================================================
-    public PessoaFisica getPessoa(int id) throws SQLException{
-        String sql = "SELECT p.*, pf.cpf " +
-                         "FROM Pessoas p " +
-                         "INNER JOIN Pessoas_Fisicas pf ON p.id_pessoa = pf.id_pessoa " +
-                         "WHERE p.id_pessoa = ?";
-        
-        try(Connection c = connector.getConnection(); PreparedStatement ps = c.prepareStatement(sql) ){
-        ps.setInt(1, id);
-            try(ResultSet rs = ps.executeQuery()) {
-               System.out.println("Entrou no try 2");
-               System.out.println(rs);
-                if(rs.next()){
-                    System.out.println("Entrou no if");
-                    return new PessoaFisica(
-                    rs.getInt("id_pessoa"),
-                    rs.getString("nome"),
-                    rs.getString("logradouro"),
-                    rs.getString("cidade"),
-                    rs.getString("estado"),
-                    rs.getString("telefone"),
-                    rs.getString("email"),
-                    rs.getString("cpf")                        
-                );   
-                }
-            }
-        }
-        return null;
-    }=========================================================================*/
-    
     
     public PessoaFisica getPessoa(int id){
         PessoaFisica pessoa = null;

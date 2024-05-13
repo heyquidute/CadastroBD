@@ -26,7 +26,7 @@ public class CadastroBDTeste {
         pessoaFisica.setCidade("New York City");
         pessoaFisica.setEstado("NY");
         pessoaFisica.setTelefone("+1 12345678");
-        pessoaFisica.setEmail("joey@friends.com");
+        pessoaFisica.setEmail("rachel@friends.com");
         pessoaFisica.setCpf("12345678910");
         
         PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
