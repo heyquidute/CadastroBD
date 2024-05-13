@@ -34,7 +34,7 @@ public class Pessoa {
     }
 
     public void setId_pessoa(int id_pessoa) {
-        this.idPessoa = idPessoa;
+        this.idPessoa = id_pessoa;
     }
 
     public String getNome() {

@@ -16,6 +16,11 @@ import java.util.Properties;
  * @author anaqu
  */
 public class ConectorBD {
+    
+    private Connection c;
+    private PreparedStatement ps;
+    private ResultSet rs;
+    
     private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=loja;encrypt=true;trustServerCertificate=true";
     private static final String USUARIO = "loja";
     private static final String SENHA = "loja";
@@ -24,14 +29,15 @@ public class ConectorBD {
         return DriverManager.getConnection(URL, USUARIO, SENHA);
     }
     
-    public static PreparedStatement getPrepared(String sql) throws SQLException{
-        Connection c = getConnection();
+    public PreparedStatement getPrepared(String sql) throws SQLException{
+        c = getConnection();
         return c.prepareStatement(sql);
     }
     
-    public static ResultSet getSelect(String sql)throws SQLException{
+    public ResultSet getSelect(String sql)throws SQLException{
         PreparedStatement ps = getPrepared(sql);
-        return ps.executeQuery();
+        rs = ps.executeQuery();
+        return rs;
     }
     
     // Métodos close sobrecarregados

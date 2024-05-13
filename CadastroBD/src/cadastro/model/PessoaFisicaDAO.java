@@ -20,16 +20,42 @@ import cadastrobd.model.PessoaFisica;
  * @author anaqu
  */
 public class PessoaFisicaDAO {
-    private SequenceManager sequence;
-    private ConectorBD conector;
+    private ConectorBD connector;
 
-    //esse construtor é necessário?
-    public PessoaFisicaDAO(SequenceManager sequence, ConectorBD conector) {
-        this.sequence = sequence;
-        this.conector = conector;
+    public PessoaFisicaDAO() {
+    connector = new ConectorBD();
     }
-
-    public PessoaFisicaDAO() {}
+    
+    /*==========================================================================
+    public PessoaFisica getPessoa(int id) throws SQLException{
+        String sql = "SELECT p.*, pf.cpf " +
+                         "FROM Pessoas p " +
+                         "INNER JOIN Pessoas_Fisicas pf ON p.id_pessoa = pf.id_pessoa " +
+                         "WHERE p.id_pessoa = ?";
+        
+        try(Connection c = connector.getConnection(); PreparedStatement ps = c.prepareStatement(sql) ){
+        ps.setInt(1, id);
+            try(ResultSet rs = ps.executeQuery()) {
+               System.out.println("Entrou no try 2");
+               System.out.println(rs);
+                if(rs.next()){
+                    System.out.println("Entrou no if");
+                    return new PessoaFisica(
+                    rs.getInt("id_pessoa"),
+                    rs.getString("nome"),
+                    rs.getString("logradouro"),
+                    rs.getString("cidade"),
+                    rs.getString("estado"),
+                    rs.getString("telefone"),
+                    rs.getString("email"),
+                    rs.getString("cpf")                        
+                );   
+                }
+            }
+        }
+        return null;
+    }=========================================================================*/
+    
     
     public PessoaFisica getPessoa(int id){
         PessoaFisica pessoa = null;
@@ -39,11 +65,12 @@ public class PessoaFisicaDAO {
         
         try{
             c = ConectorBD.getConnection();
-            //String sql = "SELECT * FROM Pessoas_Fisicas WHERE id_pessoa = ?";
-            String sql = "SELECT pf.*, p.nome, p.logradouro, p.cidade, p.estado,p.telefone, p.email" +
-                         "FROM Pessoas_Fisicas pf" +
-                         "JOIN Pessoas p ON pf.id_pessoa = p.id_pessoa" +
+     
+            String sql = "SELECT pf.*, p.nome, p.logradouro, p.cidade, p.estado,p.telefone, p.email " +
+                         "FROM Pessoas_Fisicas pf " +
+                         "JOIN Pessoas p ON pf.id_pessoa = p.id_pessoa " +
                          "WHERE pf.id_pessoa = ?";
+            
             ps = c.prepareStatement(sql);
             ps.setInt(1,id);
             
@@ -79,9 +106,8 @@ public class PessoaFisicaDAO {
         
         try{
             c = ConectorBD.getConnection();
-            //String sql = "SELECT * FROM Pessoas_Fisicas";
-            String sql = "SELECT pf.*, p.nome, p.logradouro, p.cidade, p.estado,p.telefone, p.email" +
-                         "FROM Pessoas_Fisicas pf" +
+            String sql = "SELECT pf.*, p.nome, p.logradouro, p.cidade, p.estado,p.telefone, p.email " +
+                         "FROM Pessoas_Fisicas pf " +
                          "JOIN Pessoas p ON pf.id_pessoa = p.id_pessoa";
             ps = c.prepareStatement(sql);
             
@@ -97,8 +123,8 @@ public class PessoaFisicaDAO {
                 pessoa.setTelefone(rs.getString("telefone"));
                 pessoa.setEmail(rs.getString("email"));
                 pessoa.setCpf(rs.getString("cpf"));
-                
                 pessoas.add(pessoa);
+                
             }
         } catch(SQLException excep){
             excep.printStackTrace();
@@ -129,7 +155,6 @@ public class PessoaFisicaDAO {
             psPessoa.setString(4, pessoa.getEstado());
             psPessoa.setString(5, pessoa.getTelefone());
             psPessoa.setString(6, pessoa.getEmail());
-            //psPessoa.executeUpdate();
             int linhasAfetadas  = psPessoa.executeUpdate();
             if(linhasAfetadas == 0){
                 throw new SQLException("Inserção na tabela Pessoas falhou, nenhuma linha afetada");
@@ -177,8 +202,8 @@ public class PessoaFisicaDAO {
             c = ConectorBD.getConnection();
             
             // update da tabela Pessoas
-            String sqlPessoa = "UPDATE Pessoas" +
-                                "SET nome = ?, logradouro = ?, cidade = ?, estado = ?, telefone = ?, email = ?" +
+            String sqlPessoa = "UPDATE Pessoas " +
+                                "SET nome = ?, logradouro = ?, cidade = ?, estado = ?, telefone = ?, email = ? " +
                                 "WHERE id_pessoa = ?";
             psPessoa = c.prepareStatement(sqlPessoa);
             psPessoa.setString(1, pessoa.getNome());
@@ -191,8 +216,8 @@ public class PessoaFisicaDAO {
             psPessoa.executeUpdate();
             
             //update da tabela Pessoas_Fisicas
-            String sqlPessoaFisica = "UPDATE Pessoas_Fisicas" + 
-                                     "SET cpf = ?" + 
+            String sqlPessoaFisica = "UPDATE Pessoas_Fisicas " + 
+                                     "SET cpf = ? " + 
                                      "WHERE id_pessoa = ?";
             psPessoaFisica = c.prepareStatement(sqlPessoaFisica);
             psPessoaFisica.setString(1,pessoa.getCpf());
@@ -212,7 +237,7 @@ public class PessoaFisicaDAO {
         return taNoBalde;
     }
     
-    public boolean excluir(PessoaFisica pessoa){
+    public boolean excluir(int id){
         Connection c = null;
         PreparedStatement psPessoa = null;
         PreparedStatement psPessoaFisica = null;
@@ -221,18 +246,18 @@ public class PessoaFisicaDAO {
         try{
             c = ConectorBD.getConnection();
             
-            // exclusão na tabela Pessoas
-            String sqlPessoa = "DELETE FROM Pessoas WHERE id_pessoa = ?";
-            psPessoa = c.prepareStatement(sqlPessoa);
-            psPessoa.setInt(1, pessoa.getId_pessoa());
-            psPessoa.executeUpdate();
-            
             // exclusão na tabela Pessoas_Fisicas
             String sqlPessoaFisica = "DELETE FROM Pessoas_Fisicas WHERE id_pessoa = ?";
             psPessoaFisica = c.prepareStatement(sqlPessoaFisica);
-            psPessoaFisica.setInt(1, pessoa.getId_pessoa());
+            psPessoaFisica.setInt(1, id);
             psPessoaFisica.executeUpdate();
             
+            // exclusão na tabela Pessoas
+            String sqlPessoa = "DELETE FROM Pessoas WHERE id_pessoa = ?";
+            psPessoa = c.prepareStatement(sqlPessoa);
+            psPessoa.setInt(1, id);
+            psPessoa.executeUpdate();
+                
         } catch(SQLException excep){
             excep.printStackTrace();
         } finally {
@@ -241,6 +266,6 @@ public class PessoaFisicaDAO {
             ConectorBD.close(psPessoaFisica);
         }
         return taNoBalde;
-    } //mudar parametro para int
+    }
       
 }
