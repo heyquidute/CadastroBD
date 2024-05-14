@@ -58,8 +58,7 @@ public class ConectorBD {
                 ps.close();
             } catch(SQLException excep){
                 excep.printStackTrace();
-            }
-            
+            }  
         }
     }
     
@@ -69,10 +68,7 @@ public class ConectorBD {
                 rs.close();
             } catch(SQLException excep){
                 excep.printStackTrace();
-            }
-            
+            } 
         }
-    }
-    
-    
+    }   
 }

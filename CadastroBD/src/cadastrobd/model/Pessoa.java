@@ -33,8 +33,8 @@ public class Pessoa {
         return idPessoa;
     }
 
-    public void setId_pessoa(int id_pessoa) {
-        this.idPessoa = id_pessoa;
+    public void setId_pessoa(int idPessoa) {
+        this.idPessoa = idPessoa;
     }
 
     public String getNome() {

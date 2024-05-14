@@ -29,16 +29,15 @@ public class CadastroBD {
         String tipoPessoa, resposta;
         boolean deuCerto;
         
-        System.out.println("==============================");
-        System.out.println("1 - Incluir Pessoa");
-        System.out.println("2 - Alterar Pessoa");
-        System.out.println("3 - Excluir Pessoa");
-        System.out.println("4 - Buscar pelo ID");
-        System.out.println("5 - Exibir Todos");
-        System.out.println("0 - Finalizar Programa");
-        System.out.println("==============================");
-        
         do {
+            System.out.println("==============================");
+            System.out.println("1 - Incluir Pessoa");
+            System.out.println("2 - Alterar Pessoa");
+            System.out.println("3 - Excluir Pessoa");
+            System.out.println("4 - Buscar pelo ID");
+            System.out.println("5 - Exibir Todos");
+            System.out.println("0 - Finalizar Programa");
+            System.out.println("==============================");
             opcao = Integer.parseInt(sc.nextLine());
             switch(opcao){
                 
@@ -60,13 +59,13 @@ public class CadastroBD {
                         System.out.println("Digite o estado da pessoa:");
                         String estado = sc.nextLine();
                         pf.setEstado(estado);
-                        System.out.println("Digite o telefone da pessoa:");
+                        System.out.println("Digite o telefone da pessoa: (11 dígitos)");
                         String telefone = sc.nextLine();
                         pf.setTelefone(telefone);
                         System.out.println("Digite o email da pessoa:");
                         String email = sc.nextLine();
                         pf.setEmail(email);
-                        System.out.println("Digite o CPF da pessoa:");
+                        System.out.println("Digite o CPF da pessoa: (Sem ponto e traço)");
                         String cpf = sc.nextLine();
                         pf.setCpf(cpf);
                         
@@ -121,129 +120,135 @@ public class CadastroBD {
                         System.out.println("Digite o ID da pessoa que você quer alterar:");
                         int id = Integer.parseInt(sc.nextLine());
                         pf = pfDAO.getPessoa(id);
-                        pf.exibir();
                         
-                        System.out.println("Deseja mudar o nome? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo nome:");
-                            String nome = sc.nextLine();
-                            pf.setNome(nome);
-                        }
-                        System.out.println("Deseja mudar o logradouro? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo logradouro:");
-                            String logradouro = sc.nextLine();
-                            pf.setLogradouro(logradouro);
-                        }
-                        System.out.println("Deseja mudar a cidade? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com a nova cidade:");
-                            String cidade = sc.nextLine();
-                            pf.setCidade(cidade);
-                        }
-                        System.out.println("Deseja mudar o estado? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo estado:");
-                            String estado = sc.nextLine();
-                            pf.setEstado(estado);
-                        }
-                        System.out.println("Deseja mudar o telefone? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo telefone:");
-                            String telefone = sc.nextLine();
-                            pf.setTelefone(telefone);
-                        }
-                        System.out.println("Deseja mudar o email? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo email:");
-                            String email = sc.nextLine();
-                            pf.setEmail(email);
-                        }
-                        System.out.println("Deseja mudar o CPF? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo CPF:");
-                            String cpf = sc.nextLine();
-                            pf.setCpf(cpf);
-                        }
-                        deuCerto = pfDAO.alterar(pf);
-                        if(deuCerto){
-                            System.out.println("Pessoa alterada com sucesso!");
+                        if(pf == null){
+                            System.out.println("ID inexistente no banco de dados.");
                         } else {
-                            System.out.println("Falha na alteração de dados.");
-                        }
+                            pf.exibir();
                         
+                            System.out.println("Deseja mudar o nome? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo nome:");
+                                String nome = sc.nextLine();
+                                pf.setNome(nome);
+                            }
+                            System.out.println("Deseja mudar o logradouro? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo logradouro:");
+                                String logradouro = sc.nextLine();
+                                pf.setLogradouro(logradouro);
+                            }
+                            System.out.println("Deseja mudar a cidade? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com a nova cidade:");
+                                String cidade = sc.nextLine();
+                                pf.setCidade(cidade);
+                            }
+                            System.out.println("Deseja mudar o estado? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo estado:");
+                                String estado = sc.nextLine();
+                                pf.setEstado(estado);
+                            }
+                            System.out.println("Deseja mudar o telefone? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo telefone:");
+                                String telefone = sc.nextLine();
+                                pf.setTelefone(telefone);
+                            }
+                            System.out.println("Deseja mudar o email? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo email:");
+                                String email = sc.nextLine();
+                                pf.setEmail(email);
+                            }
+                            System.out.println("Deseja mudar o CPF? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo CPF:");
+                                String cpf = sc.nextLine();
+                                pf.setCpf(cpf);
+                            }
+                            deuCerto = pfDAO.alterar(pf);
+                            if(deuCerto){
+                                System.out.println("Pessoa alterada com sucesso!");
+                            } else {
+                                System.out.println("Falha na alteração de dados.");
+                            }
+                        }   
                     } else if (tipoPessoa.equalsIgnoreCase("J")){
                         PessoaJuridica pj = new PessoaJuridica();
                         
                         System.out.println("Digite o ID da empresa que você quer alterar:");
                         int id = Integer.parseInt(sc.nextLine());
                         pj = pjDAO.getPessoa(id);
-                        pj.exibir();
-                        
-                        System.out.println("Deseja mudar o nome? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo nome:");
-                            String nome = sc.nextLine();
-                            pj.setNome(nome);
-                        }
-                        System.out.println("Deseja mudar o logradouro? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo logradouro:");
-                            String logradouro = sc.nextLine();
-                            pj.setLogradouro(logradouro);
-                        }
-                        System.out.println("Deseja mudar a cidade? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com a nova cidade:");
-                            String cidade = sc.nextLine();
-                            pj.setCidade(cidade);
-                        }
-                        System.out.println("Deseja mudar o estado? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo estado:");
-                            String estado = sc.nextLine();
-                            pj.setEstado(estado);
-                        }
-                        System.out.println("Deseja mudar o telefone? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo telefone:");
-                            String telefone = sc.nextLine();
-                            pj.setTelefone(telefone);
-                        }
-                        System.out.println("Deseja mudar o email? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo email:");
-                            String email = sc.nextLine();
-                            pj.setEmail(email);
-                        }
-                        System.out.println("Deseja mudar o CNPJ? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            System.out.println("Entre com o novo CNPJ:");
-                            String cnpj = sc.nextLine();
-                            pj.setCnpj(cnpj);
-                        }
-                        deuCerto = pjDAO.alterar(pj);
-                        if(deuCerto){
-                            System.out.println("Pessoa alterada com sucesso!");
+                        if(pj == null){
+                            System.out.println("ID inexistente no banco de dados.");
                         } else {
-                            System.out.println("Falha na alteração de dados.");
-                        }
+                            pj.exibir();
                         
-                        
+                            System.out.println("Deseja mudar o nome? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo nome:");
+                                String nome = sc.nextLine();
+                                pj.setNome(nome);
+                            }
+                            System.out.println("Deseja mudar o logradouro? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo logradouro:");
+                                String logradouro = sc.nextLine();
+                                pj.setLogradouro(logradouro);
+                            }
+                            System.out.println("Deseja mudar a cidade? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com a nova cidade:");
+                                String cidade = sc.nextLine();
+                                pj.setCidade(cidade);
+                            }
+                            System.out.println("Deseja mudar o estado? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo estado:");
+                                String estado = sc.nextLine();
+                                pj.setEstado(estado);
+                            }
+                            System.out.println("Deseja mudar o telefone? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo telefone:");
+                                String telefone = sc.nextLine();
+                                pj.setTelefone(telefone);
+                            }
+                            System.out.println("Deseja mudar o email? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo email:");
+                                String email = sc.nextLine();
+                                pj.setEmail(email);
+                            }
+                            System.out.println("Deseja mudar o CNPJ? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                System.out.println("Entre com o novo CNPJ:");
+                                String cnpj = sc.nextLine();
+                                pj.setCnpj(cnpj);
+                            }
+                            deuCerto = pjDAO.alterar(pj);
+                            if(deuCerto){
+                                System.out.println("Pessoa alterada com sucesso!");
+                            } else {
+                                System.out.println("Falha na alteração de dados.");
+                            }
+                        }   
                     } else {
                         System.out.println("Opção inválida");
                     }
@@ -257,34 +262,43 @@ public class CadastroBD {
                         System.out.println("Digite o ID da pessoa que você quer excluir:");
                         int id = Integer.parseInt(sc.nextLine());
                         pf = pfDAO.getPessoa(id);
-                        pf.exibir();
                         
-                        System.out.println("Certeza que dejesa excluir essa pessoa do banco de dados? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            pfDAO.excluir(id);
-                            System.out.println("Pessoa excluída do banco de dados.");
+                        if(pf == null){
+                            System.out.println("ID inexistente no bando de dados.");
                         } else {
-                            System.out.println("Exclusão cancelada.");
-                        }
+                            pf.exibir();
                         
+                            System.out.println("Certeza que dejesa excluir essa pessoa do banco de dados? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                pfDAO.excluir(id);
+                                System.out.println("Pessoa excluída do banco de dados.");
+                            } else {
+                                System.out.println("Exclusão cancelada.");
+                            }
+                            
+                        }
                     }else if (tipoPessoa.equalsIgnoreCase("J")){
                         PessoaJuridica pj = new PessoaJuridica();
                         
                         System.out.println("Digite o ID da empresa que você quer excluir:");
                         int id = Integer.parseInt(sc.nextLine());
                         pj = pjDAO.getPessoa(id);
-                        pj.exibir();
                         
-                        System.out.println("Certeza que dejesa excluir essa empresa do banco de dados? (S/N)");
-                        resposta = sc.nextLine();
-                        if(resposta.equalsIgnoreCase("S")){
-                            pjDAO.excluir(id);
-                            System.out.println("Empresa excluída do banco de dados.");
+                        if(pj == null){
+                            System.out.println("ID inexistente no banco de dados.");
                         } else {
-                            System.out.println("Exclusão cancelada.");
-                        }
+                            pj.exibir();
                         
+                            System.out.println("Certeza que dejesa excluir essa empresa do banco de dados? (S/N)");
+                            resposta = sc.nextLine();
+                            if(resposta.equalsIgnoreCase("S")){
+                                pjDAO.excluir(id);
+                                System.out.println("Empresa excluída do banco de dados.");
+                            } else {
+                                System.out.println("Exclusão cancelada.");
+                            }
+                        }
                     } else {
                         System.out.println("Opção inválida");                        
                     }

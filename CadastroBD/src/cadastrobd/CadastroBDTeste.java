@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class CadastroBDTeste {
     
-    public void testeInserir(){
+    public static void testeInserir(){
     //criando uma pessoa fisica e testando o incluir()
         PessoaFisica pessoaFisica = new PessoaFisica();
         pessoaFisica.setNome("Rachel Green");
@@ -57,7 +57,7 @@ public class CadastroBDTeste {
         
     }
     
-    public void testeAlterar() throws SQLException{
+    public static void testeAlterar() throws SQLException{
         // testando o alterar()
         PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
         PessoaFisica pf = new PessoaFisica();
@@ -100,7 +100,7 @@ public class CadastroBDTeste {
         }
     }
     
-    public void testeExibirPessoas() throws SQLException{
+    public static void testeExibirPessoas() throws SQLException{
         PessoaFisicaDAO pFdao = new PessoaFisicaDAO();
         List<PessoaFisica> pessoasFisicas = pFdao.getPessoas();
         
@@ -126,7 +126,7 @@ public class CadastroBDTeste {
         }  
     }
     
-    public void testeExcluir(String type,int id){
+    public static void testeExcluir(String type,int id){
         
         switch(type.toUpperCase()){
             case "F":
@@ -144,24 +144,16 @@ public class CadastroBDTeste {
     
     public static void main(String[] args) throws SQLException{
         
-        CadastroBDTeste cadastro = new CadastroBDTeste();
-        
         //TESTE PARA INSERIR DADOS NA BD
-        cadastro.testeInserir();
+        testeInserir();
         
         // TESTE PARA ALTERAR DADOS NA BD
-        cadastro.testeAlterar(); 
+        testeAlterar(); 
         
         // TESTE DE CONSULTAR TODAS AS PESSOAS DO BD
-        cadastro.testeExibirPessoas();
+        testeExibirPessoas();
         
         //TESTE PARA EXCLUIR DADOS NA BD
-        cadastro.testeExcluir("f",6);
-        
-        
-        
-        
-        
+        testeExcluir("f",6);   
     }
-    
 }
